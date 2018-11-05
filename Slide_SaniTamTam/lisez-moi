@@ -1,0 +1,116 @@
+************
+* FRANÇAIS *
+************
+
+/********************
+*
+* DOCUMENT TECHNIQUE SLIDER SANITAMTAM
+*
+********************/
+
+Une grosse partie du dossier provient de la bibliothèque “SLICK”, il est donc très conseillé de ne pas modifier certaines choses
+sous peine de voir la slider ne plus fonctionner correctement.
+
+/**********
+*
+* DOSSIER OU FICHIER AJOUTÉ
+*
+**********/
+
+|*** index.php ***|
+Ce fichier crée la nouvelle instance pour afficher tout le contenu, 
+il est très dépendant des autres fichiers “BasePage” et “Ressource”.
+
+|*** class/BasePage.class.php ***|
+Contient tout le code pour avoir une mise en place valide pour une page HTML. 
+Dépendant de “Ressource” pour l’affichage dans son “body”.
+
+|*** class/Ressource.class.php ***|
+Contiennent toutes les méthodes nécessaires au test en tous genres (connexion, validité, etc…), 
+traitement des données reçu et aussi l'algorithme.
+
+|*** json ***|
+Contient le fichier “interne.json”. Le fichier “interne.json” contient toutes les informations nécessaires pour afficher le slider.
+
+|*** ressources ***|
+Contiennent toutes les ressources nécessaires, ne pas y toucher, sauf pour faire des tests.
+
+|*** slick/default_img ***|
+Contient l’image par défaut pour le slider. Le modifier que si un nouveau logo est disponible.
+
+|*** slick/slick.css ***|
+Fichier initialement créé par le “Slick”, mais il est possible de modifier tous le css après la rubrique
+“MODIFICATION PERSO. POUR LE SLIDE”, à êtes rajoutés par la suite pour convenir au besoin du slider.
+
+|*** config.php ***|
+Contient les constantes nécessaires et souvent utilisé dans le code.
+
+/**********
+*
+* POINTS À AMÉLIORER
+*
+**********/
+
+Il y  a plusieurs choses à améliorer dans ce slider :
+
+ - La gestion des resources (voir pour une suppression si dossier vide)
+ - Améliorer le CSS (meilleure adaptabilité)
+
+********************************************************************************************************************************
+***********
+* ENGLISH *
+***********
+
+/********************
+*
+* TECHNICAL DOCUMENT SLIDER SANITAMTAM
+*
+********************/
+
+A large part of the file comes from the library "SLICK", so it is very advisable not to change some things
+otherwise the slider will not work properly.
+
+/**********
+*
+* FILE OR ADDED FILE
+*
+**********/
+
+|*** index.php ***|
+This file creates the new instance to display all the content,
+it is very dependent on other "BasePage" and "Resource" files.
+
+|*** class/BasePage.class.php ***|
+Contains all the code to have a valid layout for an HTML page.
+Dependent on "Resource" for displaying in his "body".
+
+|*** class/Resource.class.php ***|
+Contains all the methods necessary for the test of all kinds (connection, validity, etc ...),
+received data processing and also the algorithm.
+
+|*** json ***|
+Contains the file "interne.json". The file "interne.json" contains all the information needed to display the slider.
+
+|*** resources ***|
+Contain all the necessary resources, do not touch it, except for testing.
+
+|*** slick/default_img ***|
+Contains the default image for the slider. Change it only if a new logo is available.
+
+|*** slick/slick.css ***|
+File initially created by the "Slick", but it is possible to modify all the css after the rubric
+"PERSONAL MODIFICATION. FOR SLIDE ", are added later to suit the needs of the slider.
+
+|*** config.php ***|
+Contains the necessary constants and often used in the code.
+
+/**********
+*
+* POINTS TO IMPROVE
+*
+**********/
+
+There are several things to improve in this slider:
+
+  - Resource management (see for deletion if empty folder)
+  - Improve CSS (better adaptability)
