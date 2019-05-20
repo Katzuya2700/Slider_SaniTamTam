@@ -9,7 +9,7 @@
 ********************/
 
 Une grosse partie du dossier provient de la bibliothèque “SLICK”, il est donc très conseillé de ne pas modifier certaines choses
-sous peine de voir la slider ne plus fonctionner correctement.
+sous peine de voir le slider ne plus fonctionner correctement.
 
 /**********
 *
@@ -18,7 +18,7 @@ sous peine de voir la slider ne plus fonctionner correctement.
 **********/
 
 |*** index.php ***|
-Ce fichier crée la nouvelle instance pour afficher tout le contenu, 
+Ce fichier créé la nouvelle instance pour afficher tout le contenu, 
 il est très dépendant des autres fichiers “BasePage” et “Ressource”.
 
 |*** class/BasePage.class.php ***|
@@ -40,7 +40,7 @@ Contient l’image par défaut pour le slider. Le modifier que si un nouveau log
 
 |*** slick/slick.css ***|
 Fichier initialement créé par le “Slick”, mais il est possible de modifier tous le css après la rubrique
-“MODIFICATION PERSO. POUR LE SLIDE”, à êtes rajoutés par la suite pour convenir au besoin du slider.
+“MODIFICATION PERSO. POUR LE SLIDE”, à êtres rajoutés par la suite pour convenir au besoin du slider.
 
 |*** config.php ***|
 Contient les constantes nécessaires et souvent utilisé dans le code.

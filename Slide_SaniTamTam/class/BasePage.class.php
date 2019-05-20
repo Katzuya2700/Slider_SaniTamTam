@@ -75,6 +75,35 @@
                 }
                 $this->affichage.= "</ul>";
             }
+
+            $forms = $ressource->getTabForm();
+            $radios = $ressource->getTabButtonRadio();
+            $reloads = $ressource->getTabRadioReload();
+
+            $this->affichage.="<div class='interface' id='divacacher'>";
+            $this->affichage.="<form method='get' action='index.php'>
+            <p class='form_texte'>Temps entre chaque image : </p><input type='number' name='Temps'>
+            ";
+            $this->affichage.="<br><br><p class='form_texte'>Rechargement de la page automatique : </p>";
+            foreach ($reloads as $reload) {
+                $this->affichage.= "$reload";
+            }
+            $this->affichage.="<input type='number' name='Temps_reload'>";
+            $this->affichage.="<br><br><p class='reloadforce'>Rechargement forcé : </p>
+            <input type='submit'name='Rechargement' value='Rechargement'>
+            <br><br>";
+            $this->affichage.="<input type='submit'name='Enregistrement' value='Enregistrement'>";
+            $this->affichage.="</form>";
+            $this->affichage.="<button id='button_list'>Liste de vues (Slider)</button>";
+            $this->affichage.= "<div class='super_groupe_list'>";
+                foreach ($forms as $form) {
+                    $this->affichage.= "$form";
+                }
+            $this->affichage.= "</div>";
+            $this->affichage.= "</div>";
+            $this->affichage.="<div class='zone_button'>
+            <input type='button' id='button_interface' value='Interface admin' onclick='AfficherMasquer()'>
+            </div>";
         }
 
         /**********
@@ -91,8 +120,15 @@
          * 
          * Pour debug penssez à mettre autoplay sur false, pour arrêter le slide.
          * 
+         * Contiennent aussi les autres codes JS pour l'interface administrateur.
+         * 
          **********/
         public function scriptSlide() {
+
+            $ressource = new Ressource();
+
+            $codeJSs = $ressource->getTabCodeJSSpeedPlay();
+            $codeReloads = $ressource->getTabJsCodeReload();
 
             $this->scriptSlide.="
             <script src='".LIEN_CODE_JQUERY_JS."' type='text/javascript'></script>
@@ -100,16 +136,34 @@
 
             <script type='text/javascript'>
             $(document).on('ready', function(){
-              $('.your-class').slick({
+                $('.your-class').slick({
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    autoplay: true,
-                    autoplaySpeed: 7000,
-                    adaptiveHeight: true,
+                    autoplay: true,";
+                    foreach ($codeJSs as $codeJS) {
+                        $this->scriptSlide.= "$codeJS";
+                    }
+                    $this->scriptSlide.="adaptiveHeight: true,
                     arrows: false,
+                  });
                 });
-              });
             </script>
+            
+            <script type=\"text/javascript\" src='option_js/visibility_button_interface.js'>;
+            </script>
+
+            <script type='text/javascript' src='option_js/visibility_interface.js'>
+            </script>
+
+            <script type='text/javascript'>";
+            foreach($codeReloads as $codeReload) {
+                $this->scriptSlide.= "$codeReload";
+            }
+            $this->scriptSlide.="</script>
+
+            <script type=\"text/javascript\" src='option_js/visibility_list_slide.js'>
+            </script>
+            
             </head>
             <body>
             ";
