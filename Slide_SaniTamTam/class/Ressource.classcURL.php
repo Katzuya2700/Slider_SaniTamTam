@@ -39,6 +39,7 @@
         private $tabIdExterne; // Tableau pour les ID externe
 
         private $erreurs; // Tableau qui contient les messages d'erreurs
+        $GlobalFileHandle = null;
 
         /********************
          * 
@@ -201,9 +202,21 @@
          * Méthode qui retourne soit les données lues ou un false si une erreur se produit
          * 
          **********/
-        public function recupJSONExterne() {
+               
+        public function recupJSONExterne(LIEN_SLIDER_EXTERNE, '/var/www/html/json/slider_externe.json') {
 
-            if ($this->externalJson = file_get_contents(LIEN_SLIDER_EXTERNE)) {
+            if ($this->externalJson = {
+                global $GlobalFileHandle;
+                 $GlobalFileHandle = fopen('/var/www/html/json/slider_externe.json', 'w+');
+                 $ch = curl_init(LIEN_SLIDER_EXTERNE);
+                    curl_setopt($ch, CURLOPT_USERPWD, 'Animateur2:anitamtam2');
+                    curl_setopt($ch, CURLOPT_FILE, $GlobalFileHandle);
+                    curl_setopt($ch, CURLOPT_PROTOCOLS, CURL_PROTO_HTTP);
+                    curl_setopt($ch, CURLOPT_HEADER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_exec($ch);
+                    curl_close($ch);
+                    fclose($GlobalFileHandle);
             }else {
                 array_push($this->erreurs, "recupJSONExterne : Le lien externe n'est pas valide.");
             }
@@ -436,7 +449,7 @@
                     $this->resultatAutorisationAffichage = true;
                 }
             }else {
-                if ($this->internalJson === $this->externalJson) {
+                if ($this->tabInterne === $this->tabExterne) {
                     $this->resultatAutorisationAffichage = true;
                 }else {
                     $this->resultatAutorisationAffichage = true;
@@ -508,7 +521,6 @@ A...' (length=170)
                 }
             }
 			$date_event = '' ;
-			$slide = '' ;
 			$type = 'article' ;
 			if ($value['date_event'] !='') {
 				$type = 'event' ;
@@ -529,7 +541,7 @@ A...' (length=170)
 					 		</div>
 							<div class="droite">'.$image.'</div>
 						</div>
-					</article><!-- sssssss -->
+					</article>
 					';
               //  $slide .= '<div class="box_texte_slide"><h2 class="texte_slide">'.$value['title'].'</h2></div>';
 				//$slide .= '<div class="html"><div class="head"><div class="title"><div class="body">';
@@ -727,8 +739,7 @@ A...' (length=170)
                 if ($this->externalJson) {
                     $this->jsonDecode($this->parsed_ExternalJson, $this->externalJson);
                     if ($this->parsed_ExternalJson) {
-                        //$this->traitementTableau($this->parsed_ExternalJson, $this->tabExterne);
-                        $this->traitementTableau($this->parsed_ExternalJson, $this->tabInterne);
+                        $this->traitementTableau($this->parsed_ExternalJson, $this->tabExterne);
                     }
                 }
             }
@@ -744,9 +755,6 @@ A...' (length=170)
                     $this->supprimerContenu();
                     $this->ajoutContenuDossierFichier(); 
                     $this->ajoutContenuJsonInterne();
-                  //  $this->recupJSONInterne();
-                   // $this->jsonDecode($this->parsed_InternalJson, $this->internalJson);
-                   // $this->traitementTableau($this->parsed_InternalJson, $this->tabInterne);
                 }
                 if ($this->resultatAutorisationAffichage) {
                     $this->constructionTabSlide();

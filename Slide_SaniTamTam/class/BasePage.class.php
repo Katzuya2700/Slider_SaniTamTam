@@ -57,10 +57,9 @@
             $slides = $ressource->getTab();
 
             $this->affichage.= "<section class='your-class'>";
+            //var_dump($slides) ;
             foreach ($slides as $slide) {
-                $this->affichage.= "<div>";
-                $this->affichage.= "$slide";
-                $this->affichage.= "</div>";
+                $this->affichage.= "<div>".$slide."</div>";
             }
             $this->affichage .="</section>";
 
@@ -118,7 +117,7 @@
          * Tout le code après <script type='text/javascript'> va toucher directement au fonctionnement du slider
          * il est donc à modifier avec prudence
          * 
-         * Pour debug penssez à mettre autoplay sur false, pour arrêter le slide.
+         * Pour debug pensez à mettre autoplay sur false, pour arrêter le slide.
          * 
          * Contiennent aussi les autres codes JS pour l'interface administrateur.
          * 
@@ -131,7 +130,7 @@
             $codeReloads = $ressource->getTabJsCodeReload();
 
             $this->scriptSlide.="
-            <script src='".LIEN_CODE_JQUERY_JS."' type='text/javascript'></script>
+            <script src='".CHEMIN_JQUERY_JS."' type='text/javascript'></script>
             <script src='".CHEMIN_SLICK_JS."' type='text/javascript' charset='utf-8'></script>
 
             <script type='text/javascript'>
@@ -139,6 +138,7 @@
                 $('.your-class').slick({
                     slidesToShow: 1,
                     slidesToScroll: 1,
+                    pauseOnHover: false,
                     autoplay: true,";
                     foreach ($codeJSs as $codeJS) {
                         $this->scriptSlide.= "$codeJS";
@@ -166,6 +166,7 @@
             
             </head>
             <body>
+			<header><img src=".CHEMIN_IMAGE_DEFAULT." /></header>
             ";
         }
 
@@ -176,9 +177,19 @@
          **********/
         public function finPage() {
 
-            $this->finPage.="
-            </body>
-            </html>";
+            $this->finPage ='
+				<footer>
+					<div class="pied">
+						<div class="text">
+							Pour plus de renseignements rendez-vous sur &nbsp;&nbsp;&nbsp;<font size= "6"><b>www.sanitamtam.fr</b></font>
+						</div>
+						 <div class="building" ><img src="/slick/img/build.png'.$build.'"></div>
+						</div>
+				</footer>
+			
+			</body>
+				
+            </html>';
         }
 
         /********************

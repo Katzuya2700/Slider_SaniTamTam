@@ -436,7 +436,7 @@
                     $this->resultatAutorisationAffichage = true;
                 }
             }else {
-                if ($this->internalJson === $this->externalJson) {
+                if ($this->tabInterne === $this->tabExterne) {
                     $this->resultatAutorisationAffichage = true;
                 }else {
                     $this->resultatAutorisationAffichage = true;
@@ -508,7 +508,6 @@ A...' (length=170)
                 }
             }
 			$date_event = '' ;
-			$slide = '' ;
 			$type = 'article' ;
 			if ($value['date_event'] !='') {
 				$type = 'event' ;
@@ -529,7 +528,7 @@ A...' (length=170)
 					 		</div>
 							<div class="droite">'.$image.'</div>
 						</div>
-					</article><!-- sssssss -->
+					</article>
 					';
               //  $slide .= '<div class="box_texte_slide"><h2 class="texte_slide">'.$value['title'].'</h2></div>';
 				//$slide .= '<div class="html"><div class="head"><div class="title"><div class="body">';
@@ -727,8 +726,7 @@ A...' (length=170)
                 if ($this->externalJson) {
                     $this->jsonDecode($this->parsed_ExternalJson, $this->externalJson);
                     if ($this->parsed_ExternalJson) {
-                        //$this->traitementTableau($this->parsed_ExternalJson, $this->tabExterne);
-                        $this->traitementTableau($this->parsed_ExternalJson, $this->tabInterne);
+                        $this->traitementTableau($this->parsed_ExternalJson, $this->tabExterne);
                     }
                 }
             }
@@ -744,9 +742,6 @@ A...' (length=170)
                     $this->supprimerContenu();
                     $this->ajoutContenuDossierFichier(); 
                     $this->ajoutContenuJsonInterne();
-                  //  $this->recupJSONInterne();
-                   // $this->jsonDecode($this->parsed_InternalJson, $this->internalJson);
-                   // $this->traitementTableau($this->parsed_InternalJson, $this->tabInterne);
                 }
                 if ($this->resultatAutorisationAffichage) {
                     $this->constructionTabSlide();

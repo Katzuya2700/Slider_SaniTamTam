@@ -31,6 +31,6 @@
     define("CHEMIN_SLICK_CSS","./slick/slick.css"); // Chemin slick.css
     define("CHEMIN_SLICK_THEME_CSS","./slick/slick-theme.css"); // Chemin slick-theme.css
     define("CHEMIN_SLICK_JS","./slick/slick.js"); // Chemin fichier JavaScript
-    define("LIEN_CODE_JQUERY_JS","https://code.jquery.com/jquery-2.2.0.min.js"); // Lien Jquery
+    define("CHEMIN_JQUERY_JS", "https://code.jquery.com/jquery-2.2.0.min.js"); // Chemin Jquery
     
 ?>
