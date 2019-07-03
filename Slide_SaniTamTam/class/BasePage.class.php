@@ -51,7 +51,6 @@
         public function affichage() {
 
             $visible = 1;
-
             $ressource = new Ressource();
 
             $slides = $ressource->getTab();
@@ -176,7 +175,7 @@
          * 
          **********/
         public function finPage() {
-
+            $build = '';
             $this->finPage ='
 				<footer>
 					<div class="pied">

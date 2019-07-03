@@ -7,7 +7,7 @@
      * Permet de rendre invisible les erreurs non necessaire mais logique
      * 
      **********/
-    ini_set("display_errors",0);error_reporting(0);
+   // ini_set("display_errors",0);error_reporting(0);
 
     class Ressource {
 
@@ -229,7 +229,7 @@
 
             foreach($this->tabGetFormulaire as $key => $value) {
                 if($key === 1) {
-                    if($value === oui) {
+                    if($value === 'oui') {
                         $codeReloadPage.='
                         $(document).ready(function() {
                             setTimeout(function(){ 
@@ -293,17 +293,17 @@
             $formButtonRadio = '' ;
 
             foreach($this->tabGetFormulaire as $key => $value) {
-                if($value === normale || $value === '') {
+                if($value === 'normale' || $value === '') {
                     $formButtonRadio.='<input type="radio" name="time-slide" value="normale" id="normale" checked="checked" /> <label for="normale">normale</label>';
                     $formButtonRadio.='<input type="radio" name="time-slide" value="rapide" id="rapide" /> <label for="rapide">rapide</label>';
                     $formButtonRadio.='<input type="radio" name="time-slide" value="lent" id="lent" /> <label for="lent">lent</label>';
                 }
-                if($value === rapide) {
+                if($value === 'rapide') {
                     $formButtonRadio.='<input type="radio" name="time-slide" value="normale" id="normale"/> <label for="normale">normale</label>';
                     $formButtonRadio.='<input type="radio" name="time-slide" value="rapide" id="rapide" checked="checked"/> <label for="rapide">rapide</label>';
                     $formButtonRadio.='<input type="radio" name="time-slide" value="lent" id="lent" /> <label for="lent">lent</label>';
                 }
-                if($value === lent){
+                if($value === 'lent'){
                     $formButtonRadio.='<input type="radio" name="time-slide" value="normale" id="normale"/> <label for="normale">normale</label>';
                     $formButtonRadio.='<input type="radio" name="time-slide" value="rapide" id="rapide" /> <label for="rapide">rapide</label>';
                     $formButtonRadio.='<input type="radio" name="time-slide" value="lent" id="lent" checked="checked"/> <label for="lent">lent</label>';
@@ -332,13 +332,13 @@
 
             foreach($this->tabGetFormulaire as $key => $value) {
                 if($key === 1) {
-                    if($value === non || $value === '') {
+                    if($value === 'non' || $value === '') {
                         $radioTimeForm.='<select name="reload" id="autoReload">
                         <option value="non" selected>Non</option>
                         <option value="oui">Oui</option>
                         </select>';
                     }
-                    if($value === oui) {
+                    if($value === 'oui') {
                         $radioTimeForm.='<select name="reload" id="autoReload">
                         <option value="non">Non</option>
                         <option value="oui" selected>Oui</option>
@@ -366,6 +366,8 @@
 
             if (!empty($this->erreurs)) {
                     return ($this->erreurs);
+            } else {
+                return $this->erreurs = array() ;
             }
         }
 
@@ -429,6 +431,7 @@
         public function autorisationAffichage() {
 
             if ($this->tabExterne === false) {
+
                 if ($this->tabInterne === false) {
                     array_push($this->erreurs, "testComparaison : les deux tableau son vide, la connexion à internet est requise.");
                     $this->resultatAutorisationAffichage = false;
@@ -649,7 +652,8 @@ A...' (length=170)
 
             $dossier = CHEMIN_DOSSIER_RESSOURCES;
             $dir_iterator = new RecursiveDirectoryIterator($dossier);
-            $iterator = new RecursiveIteratorIterator($dir_iterator, RecursiveIteratorIterator::CHILD_FIRST);
+            $filter = new MyRecursiveFilterIterator($dir_iterator);
+            $iterator = new \RecursiveIteratorIterator($filter);
 
             // On supprime chaque dossier et chaque fichier du dossier cible
             foreach($iterator as $fichier){
@@ -724,11 +728,12 @@ A...' (length=170)
             $this->connexionInternet();
             if($this->is_conn) {
                 $this->recupJSONExterne();
+               
                 if ($this->externalJson) {
                     $this->jsonDecode($this->parsed_ExternalJson, $this->externalJson);
                     if ($this->parsed_ExternalJson) {
-                        //$this->traitementTableau($this->parsed_ExternalJson, $this->tabExterne);
-                        $this->traitementTableau($this->parsed_ExternalJson, $this->tabInterne);
+                        $this->traitementTableau($this->parsed_ExternalJson, $this->tabExterne);
+                        //$this->traitementTableau($this->parsed_ExternalJson, $this->tabInterne);
                     }
                 }
             }
@@ -795,4 +800,27 @@ A...' (length=170)
         var_dump($source);
         echo "</pre>";
     }
+
+
+    class MyRecursiveFilterIterator extends \RecursiveFilterIterator {
+
+        public function accept() {
+          $filename = $this->current()->getFilename();
+          // Skip hidden files and directories.
+          if ($filename[0] === '.') {
+            return FALSE;
+          }
+          if ($this->isDir()) {
+            // Only recurse into intended subdirectories.
+            return $filename === 'wanted_dirname';
+          }
+          else {
+            // Only consume files of interest.
+            return strpos($filename, 'wanted_filename') === 0;
+          }
+        }
+      
+      }
+
+
 ?>
